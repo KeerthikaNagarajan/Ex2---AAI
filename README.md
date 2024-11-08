@@ -1,7 +1,12 @@
-## Experiment 2:Implementation of Exact Inference Method of Bayesian Network
-## Name: Keerthika N
-## Register No.: 212221230049
 ## Date: 02.09.2024
+
+<h1 align="center">  
+   Experiment 2: Implementation of Exact Inference Method of Bayesian Network  
+</h1>  
+
+### Name: Keerthika N
+### Register Number: 212221230049
+
 ## Aim:
 To implement the inference Burglary P(B| j,⥗m) in alarm problem by using Variable Elimination method in Python.
 
@@ -17,6 +22,8 @@ Step 7: Print the results.<br>
 
 ## Program :
 ```python
+
+!pip install pgmpy
 # Importing Library
 from pgmpy.models import BayesianNetwork
 from pgmpy.inference import VariableElimination
@@ -72,10 +79,10 @@ evidence={"JohnCalls":1,"MaryCalls":0}
 query='Burglary'
 res=inference.query(variables=[query],evidence=evidence)
 print(res)
-
 evidence2={"JohnCalls":1,"MaryCalls":1}
 res2=inference.query(variables=[query],evidence=evidence2)
-print(res2)
+print(res)
+
 ```
 
 ## Output :
