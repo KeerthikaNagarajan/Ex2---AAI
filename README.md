@@ -1,4 +1,4 @@
-## Date: 02.09.2024
+## Date: 12.08.2024
 
 <h1 align="center">  
    Experiment 2: Implementation of Exact Inference Method of Bayesian Network  
