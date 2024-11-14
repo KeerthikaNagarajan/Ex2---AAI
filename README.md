@@ -24,12 +24,10 @@ Step 7: Print the results.<br>
 ```python
 
 !pip install pgmpy
+
 # Importing Library
 from pgmpy.models import BayesianNetwork
-from pgmpy.factors.discrete import TabularCPD
-from pgmpy.sampling import GibbsSampling
-import networkx as nx
-import matplotlib.pyplot as plt
+from pgmpy.inference import VariableElimination
 # Defining network structure
 
 alarm_model = BayesianNetwork(
@@ -76,18 +74,23 @@ cpd_marycalls = TabularCPD(
 alarm_model.add_cpds(
     cpd_burglary, cpd_earthquake, cpd_alarm, cpd_johncalls, cpd_marycalls
 )
-gibbssampler=GibbsSampling(alarm_model)
-num_samples=10000
-samples=gibbssampler.sample(size=num_samples)
-query_variable="Burglary"
-query_result=samples[query_variable].value_counts(normalize=True)
-print("\nApproximate probabilities of {}:".format(query_variable))
-print(query_result)
+alarm_model.check_model()
+inference=VariableElimination(alarm_model)
+evidence={"JohnCalls":1,"MaryCalls":0}
+query='Burglary'
+res=inference.query(variables=[query],evidence=evidence)
+print("\nExact probabilities of Burglary given JohnCalls=True and MaryCalls=False:")
+print(res)
+
+evidence2={"JohnCalls":1,"MaryCalls":1}
+res2=inference.query(variables=[query],evidence=evidence2)
+print("\nExact probabilities of Burglary given JohnCalls=True and MaryCalls=True:")
+print(res2)
 
 ```
 
 ## Output :
-![Screenshot 2024-11-11 at 3 12 11 PM](https://github.com/user-attachments/assets/81bcfd56-9b3f-4237-a437-ec6d7c4fc531)
+![Screenshot 2024-11-14 at 5 48 22 PM](https://github.com/user-attachments/assets/d7bbc0f9-9fa9-462d-9ba1-9c84458c0ebc)
 
 ## Result :
 Thus, Bayesian Inference was successfully determined using Variable Elimination Method
